@@ -37,14 +37,11 @@ const Register = () => {
     formData.append("email", data.email);
     formData.append("password", data.password);
     formData.append("profileImg", data.profileImg);
-    debugger;
 
     Axios.post(`${baseUrl}/register`, formData).then((result) => {
       if (result.data.success === true) {
         window.alert("User registered successfully.");
         navigate("/login");
-      } else {
-        window.alert("Failed to register");
       }
     });
   };

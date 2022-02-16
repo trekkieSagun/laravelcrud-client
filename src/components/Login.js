@@ -29,22 +29,27 @@ const Login = () => {
       password: data.password,
     };
 
-    Axios.post(`${baseUrl}/login`, postData).then((result) => {
-      if (result.status === 200) {
-        if (result.data.data.token) {
-          let user = {
-            loggedIn: true,
-            token: result.data.data.token,
-            name: result.data.data.name,
-            profileImg: result.data.data.profileImg,
-          };
-          localStorage.setItem("user", JSON.stringify(user));
+    Axios.post(`${baseUrl}/login`, postData)
+      .then((result) => {
+        if (result.status === 200) {
+          if (result.data.data.token) {
+            let user = {
+              loggedIn: true,
+              token: result.data.data.token,
+              name: result.data.data.name,
+              profileImg: result.data.data.profileImg,
+            };
+            localStorage.setItem("user", JSON.stringify(user));
 
-          window.alert(result.data.message);
-          navigate("/");
+            window.alert(result.data.message);
+            navigate("/");
+          }
         }
-      }
-    });
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("Invalid email or password");
+      });
   };
 
   return (

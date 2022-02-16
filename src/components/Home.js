@@ -1,7 +1,27 @@
-import React from "react";
+import Axios from "axios";
+import React, { useEffect, useState } from "react";
 import sample from "../images/sample.jpg";
 
+const baseUrl = process.env.REACT_APP_baseUrl;
+const imgUrl = process.env.REACT_APP_imageUrl;
+
 const Home = () => {
+  const [blogs, setBlogs] = useState("");
+
+  const getAllBlogs = () => {
+    Axios.get(`${baseUrl}/get-published-blog`)
+      .then((response) => {
+        const allBlogs = response.data.data;
+
+        setBlogs(allBlogs);
+      })
+      .catch(console.error("Error"));
+  };
+
+  useEffect(() => {
+    getAllBlogs();
+  }, []);
+
   return (
     <div className="m-4">
       <h1 className="center-h1">Check out some of our blogs.</h1>
